@@ -1,1 +1,0 @@
-# CulturalPass---Fronted---Final
