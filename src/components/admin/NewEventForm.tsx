@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { toOffsetIso } from "@src/utils/datetime";
 import { createEvent } from "@src/services/admin/events";
-import type { EventType, EventStatus } from "@src/interfaces/event/enums";
+import { EventType, EventStatus } from "@src/interfaces/event/enums";
 
 type FormState = {
   title: string;
@@ -22,20 +22,20 @@ type FormState = {
 };
 
 const EVENT_TYPES: EventType[] = [
-  "CONCIERTO",
-  "OBRA_DE_TEATRO",
-  "EXPOSICION",
-  "TALLER",
-  "PROYECCION",
-  "CONFERENCIA",
-  "FERIA",
+  EventType.CONCIERTO,
+  EventType.OBRA_DE_TEATRO,
+  EventType.EXPOSICION,
+  EventType.TALLER,
+  EventType.PROYECCION,
+  EventType.CONFERENCIA,
+  EventType.FERIA,
 ];
 
 const EVENT_STATUS: EventStatus[] = [
-  "APERTURADO",
-  "EN_CURSO",
-  "FINALIZADO",
-  "CANCELADO",
+  EventStatus.APERTURADO,
+  EventStatus.EN_CURSO,
+  EventStatus.CLAUSURADO,
+  EventStatus.CANCELADO,
 ];
 
 export default function NewEventForm() {
@@ -53,8 +53,8 @@ export default function NewEventForm() {
     startDateLocal: "",
     endDateLocal: "",
     location: "",
-    type: "CONCIERTO",
-    status: "APERTURADO",
+    type: EventType.CONCIERTO,
+    status: EventStatus.APERTURADO,
     capacity: 0,
     costEntry: 0,
     tagInput: "",

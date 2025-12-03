@@ -127,7 +127,7 @@ export default function AdminEventsPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <StatusBadge status={ev.status} />
+                      <StatusBadge status={String(ev.status)} />
                     </td>
                     <td className="px-6 py-4 text-background-secondary">
                       {new Date(ev.startDate).toLocaleString("es-PE", {

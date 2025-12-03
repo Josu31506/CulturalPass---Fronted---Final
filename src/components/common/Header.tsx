@@ -3,7 +3,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Logo from "@src/assets/logo.png"
 import { AuthSection } from './AuthSection';
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -40,7 +40,11 @@ export const Header = () => {
 
                 {/* Search: visible on md and up */}
                 <div className="flex-1 px-4 hidden md:block">
-                    {showSearch && <SearchSide placeholder="Buscar un evento..." />}
+                    {showSearch && (
+                        <Suspense fallback={<div className="w-full h-10 bg-gray-100 rounded-3xl animate-pulse" />}>
+                            <SearchSide placeholder="Buscar un evento..." />
+                        </Suspense>
+                    )}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -55,7 +59,9 @@ export const Header = () => {
                     </button>
 
                     <div className="min-w-fit ml-2 hidden md:block">
-                        <AuthSection />
+                        <Suspense fallback={<div className="w-20 h-10 bg-gray-100 rounded-3xl animate-pulse" />}>
+                            <AuthSection />
+                        </Suspense>
                     </div>
                 </div>
             </div>
@@ -87,35 +93,18 @@ export const Header = () => {
                                 </button>
                             </div>
 
-                            {/* Session summary */}
-                            {/* <div className="mb-4">
-                                {session?.user ? (
-                                    <div className="flex items-center gap-3 p-3 rounded-md bg-white/80">
-                                        <div className="bg-background-little-1 rounded-full h-10 w-10 flex items-center justify-center text-white font-bold">{session.user.firstName?.[0]?.toUpperCase() || ''}</div>
-                                        <div className="truncate">
-                                            <p className="text-sm font-semibold text-background-secondary truncate">{session.user.firstName} {session.user.lastName || ''}</p>
-                                            <p className="text-xs text-gray-600 truncate">{session.user.email}</p>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="p-3 rounded-md bg-white/80">
-                                        <p className="text-sm">No has iniciado sesión</p>
-                                        <Link href={`/auth/login?callbackUrl=${encodeURIComponent(pathname)}`} className="text-sm text-background-secondary underline">Iniciar sesión</Link>
-                                    </div>
-                                )}
-                            </div> */}
-
-                            {showSearch && <div className="mb-4"><SearchSide placeholder="Buscar un evento..." /></div>}
+                            {showSearch && (
+                                <Suspense fallback={<div className="w-full h-10 bg-gray-100 rounded-3xl animate-pulse" />}>
+                                    <SearchSide placeholder="Buscar un evento..." />
+                                </Suspense>
+                            )}
 
                             <div className="mt-2">
-                                <AuthSection />
+                                <Suspense fallback={<div className="w-full h-10 bg-gray-100 rounded-3xl animate-pulse" />}>
+                                    <AuthSection />
+                                </Suspense>
                             </div>
 
-                            {/* <nav className="mt-6 space-y-2">
-                                <Link href="/" className="block px-3 py-2 rounded-md hover:bg-bg-alternative">Inicio</Link>
-                                <Link href="/myevents" className="block px-3 py-2 rounded-md hover:bg-bg-alternative">Mis eventos</Link>
-                                <Link href="/profile" className="block px-3 py-2 rounded-md hover:bg-bg-alternative">Perfil</Link>
-                            </nav> */}
                         </motion.aside>
                     </motion.div>
                 )}

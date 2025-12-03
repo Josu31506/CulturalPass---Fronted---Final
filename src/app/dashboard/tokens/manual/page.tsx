@@ -22,7 +22,7 @@ export default function ManualValidationPage() {
     setMsg(null); setErr(null);
     try {
       setLoading(true);
-      const res = await validateManual(adminJwt, {
+      const res = await validateManual(adminJwt!, {
         email: form.email.trim(),
         firstName: form.firstName.trim(),
         eventId: Number(form.eventId),
